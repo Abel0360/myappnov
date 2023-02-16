@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'login_aasgnmnt.dart';
+import 'login.dart';
+
+
 void main(){
   runApp(MaterialApp(home: Sign_Upp(),debugShowCheckedModeBanner: false,));
 }
@@ -59,7 +61,7 @@ class Sign_Upp extends StatelessWidget{
               ),
               ElevatedButton(onPressed: (){}, child: Text("Sign Up"),),
               TextButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>Log_Inn() ));
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>Log_Inn () ));
               }, child: Text("Already have an account? Login")),
             ]
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myappnov/assingement/sign_up.dart';
 
-import 'Sign_upp.dart';
+
 void main(){
   runApp(MaterialApp(home: Log_Inn(),debugShowCheckedModeBanner: false,));
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myappnov/contactbook.dart';
+
+import 'list_page.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -12,36 +15,69 @@ class _LoginFormState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("LoginForm"),
+        title: Text("LoginForm"),
       ),
       body: Form(
+        key: formkey,
         child: ListView(
           children: [
-            const Center( child: Text("LoginPage"),),
+            Center(
+              child: Text("LoginPage"),
+            ),
             Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.only(
+                  left: 50, right: 50, bottom: 20, top: 20),
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: "UserName",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
-                ),
+                    prefixIcon: Icon(Icons.account_circle_rounded),
+                    labelText: "Enter Username",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
                 textInputAction: TextInputAction.next,
+                validator: (email) {
+                  if (email!.isEmpty || !email.contains('@')) {
+                    return 'Enter a valid email';
+                  } else {
+                    return null;
+                  }
+                },
               ),
             ),
             Padding(
-                padding: EdgeInsets.all(30),
-            child: TextFormField(
-              decoration: InputDecoration(
-                labelText: "Password",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
+              padding: const EdgeInsets.only(left: 50, right: 50, bottom: 20),
+              child: TextFormField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.visibility_off),
+                    suffixIcon: Icon(Icons.visibility_outlined),
+                    labelText: "Password",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
+                textInputAction: TextInputAction.done,
+                validator: (password) {
+                  if (password!.isEmpty || password.length < 6) {
+                    return 'Enter a valid Password, should contain  6 character';
+                  } else {
+                    return null;
+                  }
+                },
               ),
-              textInputAction: TextInputAction.done,
-            ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 100,right: 100),
-              child: ElevatedButton(onPressed: () {}, child: const Text("Login")),
-            )],
+              padding: const EdgeInsets.only(left: 80, right: 80),
+              child: ElevatedButton(
+                  onPressed: () {
+                    final valid = formkey.currentState!.validate();
+                  if(valid){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => list_page()));
+
+                  }else{
+                    print("failed");
+
+                  }
+                    },
+                  child: Text("Login")),
+            )
+          ],
         ),
       ),
     );

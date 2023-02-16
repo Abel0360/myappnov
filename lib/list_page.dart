@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class listpage extends StatelessWidget{
+class list_page extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body:Text("hi")
+    );
   }
 
 }
-      
-
