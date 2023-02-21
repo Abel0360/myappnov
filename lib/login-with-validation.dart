@@ -10,18 +10,19 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State {
   var formkey = GlobalKey<FormState>();
+  bool showpassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("LoginForm"),
+        title: const Text("LoginForm"),
       ),
       body: Form(
         key: formkey,
         child: ListView(
           children: [
-            Center(
+            const Center(
               child: Text("LoginPage"),
             ),
             Padding(
@@ -29,7 +30,7 @@ class _LoginFormState extends State {
                   left: 50, right: 50, bottom: 20, top: 20),
               child: TextFormField(
                 decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.account_circle_rounded),
+                    prefixIcon: const Icon(Icons.account_circle_rounded),
                     labelText: "Enter Username",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -46,12 +47,38 @@ class _LoginFormState extends State {
             Padding(
               padding: const EdgeInsets.only(left: 50, right: 50, bottom: 20),
               child: TextFormField(
+                obscureText: showpassword,
+                obscuringCharacter: '*',
                 decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.visibility_off),
-                    suffixIcon: Icon(Icons.visibility_outlined),
+                    prefixIcon: const Icon(Icons.visibility_off),
+
+
+
+                       // password hide and show button
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+
+                          if(showpassword){
+                            showpassword = false;
+                          } else {
+                            showpassword = true;
+                          }
+                        });
+                      },
+                      icon: Icon(
+                        showpassword == true
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
+
+
+
                     labelText: "Password",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
+
                 textInputAction: TextInputAction.done,
                 validator: (password) {
                   if (password!.isEmpty || password.length < 6) {
@@ -67,15 +94,14 @@ class _LoginFormState extends State {
               child: ElevatedButton(
                   onPressed: () {
                     final valid = formkey.currentState!.validate();
-                  if(valid){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => list_page()));
-
-                  }else{
-                    print("failed");
-
-                  }
-                    },
-                  child: Text("Login")),
+                    if (valid) {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => list_page()));
+                    } else {
+                      return null;
+                    }
+                  },
+                  child: const Text("Login")),
             )
           ],
         ),
